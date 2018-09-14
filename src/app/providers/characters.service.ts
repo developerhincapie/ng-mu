@@ -11,4 +11,8 @@ export class CharactersService {
     getAllCharacters() {
         return this.http.get(`${AppSettings.Api}character/`);
     }
+
+    getPages(value) {
+        return this.http.get(`${AppSettings.Api}character/?page=${value}`);
+    }
 }

@@ -9,6 +9,9 @@ import { CharactersService } from './providers/characters.service';
 export class AppComponent implements OnInit {
   title = 'app';
   items: any = [];
+  counts: any = 1;
+  pagination: any;
+  loaded = true;
 
   constructor(private _charactersService: CharactersService) { }
 
@@ -19,9 +22,35 @@ export class AppComponent implements OnInit {
   getData() {
     this._charactersService.getAllCharacters()
       .subscribe((response: any) => {
+        this.loaded = false;
         this.items = response.results;
-        console.log(response);
+        this.pagination = response.info.pages;
       });
+  }
+
+  nextPage() {
+    this.counts++;
+    this.loaded = true;
+    if (this.pagination >= this.counts) {
+      this._charactersService.getPages(this.counts)
+        .subscribe((response: any) => {
+          this.loaded = false;
+          this.items = response.results;
+          this.pagination = response.info.pages;
+        });
+    }
+  }
+
+  prevPage() {
+    if (this.counts > 1) {
+      this.counts--;
+      this._charactersService.getPages(this.counts)
+        .subscribe((response: any) => {
+          this.loaded = false;
+          this.items = response.results;
+          this.pagination = response.info.pages;
+        });
+    }
   }
 
 }
