@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
   prevPage() {
     if (this.counts > 1) {
       this.counts--;
+      this.loaded = true;
       this._charactersService.getPages(this.counts)
         .subscribe((response: any) => {
           this.loaded = false;

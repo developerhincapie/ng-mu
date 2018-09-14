@@ -28,6 +28,11 @@
     }
 }
 
+body{
+  font-family: 'Roboto', sans-serif;
+  background-color: #fafafa !important;
+}
+
 
 .card{
     position:relative;
@@ -168,6 +173,3 @@
     margin-left: -15px; 
     margin-right: -15px; 
  }
-
-.col{
-}
